@@ -89,7 +89,7 @@ export default function Sidebar() {
                 <NavIcon style={{ fontSize: value.fontSize }} className={location.pathname === `/Dashbord/${value.path}` ? "activenew" : ""}>
                   <i className={value.icon} />
                 </NavIcon>
-                <SidebarMenuItemLabel>
+                <SidebarMenuItemLabel className={location.pathname === `/Dashbord/${value.path}` ? "stylecolor" : ""}>
                   {/* <IntlMassage id="sidebar.dashboard" /> */}
                   {value.name}
                 </SidebarMenuItemLabel>
