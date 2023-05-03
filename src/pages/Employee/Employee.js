@@ -8,7 +8,7 @@ import "../../style/globalStyle.css";
 const Employee = () => {
     const schema = Yup.object().shape({
         name: Yup.string().required("Name is required"),
-        age: Yup.number().required("Age is required"),
+        age: Yup.string().required("Age is required"),
         sex: Yup.string().required("gender is required"),
         // mobile: Yup.string()
         //   .matches(/^[6-9]\d{9}$/, 'Invalid Indian mobile number')
