@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "../../style/globalStyle.css";
 
+
+const countries = [
+    { name: "USA", states: ["California", "Texas", "Florida"] },
+    { name: "Canada", states: ["Ontario", "Quebec", "British Columbia"] },
+    { name: "Mexico", states: ["Jalisco", "Mexico City", "Nuevo León"] }
+  ];
+  
+  const statesByCountry = {
+    USA: [
+      { name: "California", cities: ["Los Angeles", "San Francisco", "San Diego"] },
+      { name: "Texas", cities: ["Houston", "Austin", "Dallas"] },
+      { name: "Florida", cities: ["Miami", "Orlando", "Tampa"] }
+    ],
+    Canada: [
+      { name: "Ontario", cities: ["Toronto", "Ottawa", "Hamilton"] },
+      { name: "Quebec", cities: ["Montreal", "Quebec City", "Gatineau"] },
+      { name: "British Columbia", cities: ["Vancouver", "Victoria", "Burnaby"] }
+    ],
+    Mexico: [
+      { name: "Jalisco", cities: ["Guadalajara", "Zapopan", "Tlaquepaque"] },
+      { name: "Mexico City", cities: ["Mexico City", "Nezahualcoyotl", "Ecatepec"] },
+      { name: "Nuevo León", cities: ["Monterrey", "San Nicolás de los Garza", "Apodaca"] }
+    ]
+  };
+
 const Employee = () => {
     const schema = Yup.object().shape({
         name: Yup.string().required("Name is required"),
         age: Yup.string().required("Age is required"),
         sex: Yup.string().required("gender is required"),
-        // mobile: Yup.string()
-        //   .matches(/^[6-9]\d{9}$/, 'Invalid Indian mobile number')
-        //   .required('Mobile number is required'),
-        //   idType: Yup.string().required('ID Type is required'),
+        mobile: Yup.string()
+          .matches(/^[6-9]\d{9}$/, 'Invalid Indian mobile number')
+          .required('Mobile number is required'),
+          idType: Yup.string().required('ID Type is required'),
         //   govId: Yup.string()
         //     .when('idType', {
         //       is: 'Aadhar',
@@ -28,11 +53,11 @@ const Employee = () => {
         //         .matches(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, 'Must be a valid 10-digit alpha-numeric string')
         //         .required('Govt ID is required')
         //     }),
-        // guardianName: Yup.string(),
-        // email: Yup.string().email('Invalid email address'),
-        // emergencyContact: Yup.string()
-        //   .matches(/^[6-9]\d{9}$/, 'Invalid Indian mobile number'),
-        // address: Yup.string(),
+        guardianName: Yup.string(),
+        email: Yup.string().email('Invalid email address'),
+        emergencyContact: Yup.string()
+          .matches(/^[6-9]\d{9}$/, 'Invalid Indian mobile number'),
+        address: Yup.string(),
         state: Yup.string(),
         city: Yup.string(),
         country: Yup.string(),
@@ -43,6 +68,46 @@ const Employee = () => {
         bloodGroup: Yup.string(),
         nationality: Yup.string(),
     });
+
+    const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const handleCountryChangee = (e) => {
+    setSelectedCountry(e.target.value);
+    setSelectedState("");
+    setSelectedCity("");
+  };
+
+  const handleStateChangee = (e) => {
+    setSelectedState(e.target.value);
+    setSelectedCity("");
+  };
+
+  const countryOptions = countries.map((country) => (
+    <option key={country.name} value={country.name}>
+      {country.name}
+    </option>
+  ));
+
+  const stateOptions =
+    selectedCountry &&
+    statesByCountry[selectedCountry].map((state) => (
+      <option key={state.name} value={state.name}>
+        {state.name}
+      </option>
+    ));
+
+  const cityOptions =
+    selectedState &&
+    statesByCountry[selectedCountry]
+      .find((state) => state.name === selectedState)
+      .cities.map((city) => (
+        <option key={city} value={city}>
+          {city}
+        </option>
+      ));
+
 
     const {
         register,
@@ -189,8 +254,10 @@ const Employee = () => {
                 <div>
                     <select {...register("contactType")}>
                         <option value="">Select</option>
-                        <option value="Personal">Personal</option>
-                        <option value="Business">Business</option>
+                        <option value="Personal">mother</option>
+                        <option value="Business">father</option>
+                        <option value="Business">brother</option>
+                        <option value="Business">sister</option>
                     </select>
                 </div>
 
@@ -224,13 +291,15 @@ const Employee = () => {
                     <label>State</label>
                 </div>
                 <div>
-                    <select {...register("state")} onChange={handleStateChange}>
+                    <select {...register("state")} onChange={handleStateChangee}>
+                    {/* <select  onChange={handleStateChangee}> */}
                         <option value="">Select</option>
-                        {states.map((state) => (
+                        {/* {states.map((state) => (
                             <option key={state.code} value={state.code}>
                                 {state.name}
                             </option>
-                        ))}
+                        ))} */}
+                        {stateOptions}
                     </select>
                 </div>
                 <div>
@@ -238,25 +307,28 @@ const Employee = () => {
                 </div>
                 <div>
                     <select {...register("city")}>
+                    {/* <select onChange={(e) => setSelectedCity(e.target.value)}> */}
                         <option value="">Select</option>
-                        {cities.map((city) => (
+                        {/* {cities.map((city) => (
                             <option key={city.code} value={city.code}>
                                 {city.name}
                             </option>
-                        ))}
+                        ))} */}
+{cityOptions}
                     </select>
                 </div>
                 <div>
                     <label>Country</label>
                 </div>
                 <div>
-                    <select {...register("country")} onChange={handleCountryChange}>
+                    <select {...register("country")} onChange={handleCountryChangee}>
+                    {/* <select   onChange={handleCountryChangee}> */}
                         <option value="">Select</option>
                         {/* {COUNTRIES.map((country) => (
       <option key={country.code} value={country.code}>
         {country.name}
       </option>
-    ))} */}
+    ))} */}{countryOptions}
                     </select>
 
                 </div>
