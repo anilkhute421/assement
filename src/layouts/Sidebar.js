@@ -1,11 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink , useLocation  } from "react-router-dom";
-// import { activeLink } from "../style/global_syle";
-// import IntlMassage from "../utils/IntlMassage";
-// import { GlobalStyle } from "../style/global_syle";
 import '../style/globalStyle.css';
-// import '../style/'
 
 
 export default function Sidebar() {
@@ -13,51 +9,22 @@ export default function Sidebar() {
   console.log(location , 'location');
   const Sidebar = [
     {
-      path: "Dashbord",
-      icon: "icon-Vector",
-      name: "Dashbord",
-      fontSize: "20px",
+      path: "/",
+      icon: "icon-Vector-2",
+      name: "Create User",
+      fontSize: "15px",
     },
+    
     {
-      path: "Project",
+      path: "view-user",
       icon: "icon-report",
-      name: "Project",
+      name: "User Deatils",
       fontSize: "20px",
     },
-    {
-      path: "Reporting",
-      icon: "icon-Vector-1",
-      name: "Reporting",
-      fontSize: "20px",
-    },
-    {
-      path: "Employee",
-      icon: "icon-Vector-2",
-      name: "Employee",
-      fontSize: "15px",
-    },
-    {
-      path: "Lms",
-      icon: "icon-Vector-2",
-      name: "Lms",
-      fontSize: "15px",
-    },
+    
   ];
 
-  const SidebarSecond = [
-    {
-      path: "Notifications",
-      icon: "icon-Vector-3",
-      name: "Notifications",
-      fontSize: "20px",
-    },
-    {
-      path: "Setting",
-      icon: "icon-Vector-4",
-      name: "Settings",
-      fontSize: "20px",
-    },
-  ];
+  
 
   return (
     <SidebarContainer>
@@ -81,23 +48,7 @@ export default function Sidebar() {
         </div>
       </SidebarValue>
 
-      <SidebarSecondValue>
-        {SidebarSecond.map((value, index) => {
-          return (
-            <SidebarMenuItem>
-              <NavLink to={value.path} activeClassName="activeLink" exact>
-                <NavIcon style={{ fontSize: value.fontSize }} className={location.pathname === `/Dashbord/${value.path}` ? "activenew" : ""}>
-                  <i className={value.icon} />
-                </NavIcon>
-                <SidebarMenuItemLabel className={location.pathname === `/Dashbord/${value.path}` ? "stylecolor" : ""}>
-                  {/* <IntlMassage id="sidebar.dashboard" /> */}
-                  {value.name}
-                </SidebarMenuItemLabel>
-              </NavLink>
-            </SidebarMenuItem>
-          );
-        })}
-      </SidebarSecondValue>
+      
     </SidebarContainer>
   );
 }
@@ -105,14 +56,14 @@ export default function Sidebar() {
 export const SidebarContainer = styled.form`
   height: 100vh;
   min-height: 550px;
-  width: 192px;
+  width: 15%;
   background-color: #252529;
   display: flex;
   flex-direction: column;
   background: #ffffff;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
   color: #000;
-  // position: fixed;
+  position: fixed;
   left: ${({ dir }) => dir === "ltr" && "0"};
 
   right: ${({ dir }) => dir === "rtl" && "0"};
@@ -137,14 +88,14 @@ export const SidebarValue = styled.form`
 
   // /* light-bg */
 
-  border: 2px solid #f7f7fa;
+  // border: 2px solid #f7f7fa;
   // box-shadow: 0px 0px 0px 10px  rgba(0, 0, 0, 0.25);
 
   // display: flex;
   align-items: center;
   flex-direction: column;
   list-style: none;
-  width: 100%;
+  width: 25%;
   margin: 0;
   padding: 0;
 `;
@@ -161,10 +112,10 @@ const SidebarMenuItem = styled.li`
   width: 100%;
   margin-top: 15px;
   a {
-    width: 0.5%;
+    width: 10%;
     font-weight: 500;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 17p3
     color: rgba(0, 0, 0, 0.6);
     text-decoration: none;
     display: flex;

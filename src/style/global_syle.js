@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
-import { calIcon } from "../utils/image";
+// import { calIcon } from "../utils/image";
 
 export const GlobalStyle = createGlobalStyle`
 *{
@@ -56,7 +56,6 @@ export const GlobalStyle = createGlobalStyle`
         border:none;
         outline:none;
         padding:10px 20px;
-        background:url(${calIcon}) #FFFFFF;
         background-position:${({ Dir }) => Dir === "ltr" && "right center"};
         background-position:${({ Dir }) => Dir === "rtl" && "left center"};
        cursor:pointer;
@@ -350,4 +349,6 @@ export const InputDate = styled.input`
     height: 40px;
   }
 `;
+
+
 

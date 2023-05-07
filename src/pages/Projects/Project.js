@@ -1,63 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import axios from "axios";
 
-const data = [
-  { id: 1, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 4, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 5, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 6, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 7, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 8, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 9, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 10, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 1, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 1, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 1, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 1, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 1, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 1, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-
-  { id: 1, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" },
-  { id: 1, name: "John Smith", age: 30, email: "john.smith@example.com" },
-  { id: 2, name: "Jane Doe", age: 25, email: "jane.doe@example.com" },
-  { id: 3, name: "Bob Johnson", age: 45, email: "bob.johnson@example.com" }
-
-];
 
 const columns = [
   { name: "ID", selector: "id", sortable: true },
-  { name: "Name", selector: "name", sortable: true },
-  { name: "Age", selector: "age", sortable: true },
-  { name: "Email", selector: "email" },
-  { name: "Email", selector: "email" },
-  { name: "Email", selector: "email" },
-  { name: "Email", selector: "email" },
-  { name: "Email", selector: "email" },
+  { name: "Name", selector: "name", sortable: false },
+  { name: "Age/Sex", selector:  `agegender`, sortable: false },
+  { name: "Mobile", selector: "phone_number" },
+  { name: "Address", selector: "address" },
+  { name: "Govt ID", selector: "idno" },
+  { name: "Guardian Details", selector: "gardian_name" },
+  { name: "Nationality", selector: "nationality" },
 ];
 
 const MyDataTable = () => {
+
+  const [userData , setUserdata] = useState([]); 
+
+  const user_register = process.env.REACT_APP_API_KEY+'/api/v1/user_details'
+
+
+  const getData = async() => {
+    try {
+      const response = await axios.get(user_register);
+      setUserdata(response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(()=>{
+    getData();
+  },[])
   const [filterText, setFilterText] = useState("");
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 
-  const filteredData = data.filter((item) =>
+  const filteredData = userData.filter((item) =>
     item.name.toLowerCase().includes(filterText.toLowerCase())
   );
 
@@ -69,14 +48,16 @@ const MyDataTable = () => {
   };
 
   return (
-<div style={{position:'absolute' , top:'80px' , left:'250px' , width:'80%'}}>
+<div style={{position:'absolute' , top:'100px' , left:'250px' , width:'80%'}}>
 
     <DataTable
     style={{width:'100%' , background:'red'}}
-      title="Users"
+      title="Users Details"
       columns={columns}
       data={filteredData}
       pagination={true}
+      loading={true}
+      loadingComponent={'Loading....'}
       paginationResetDefaultPage={resetPaginationToggle}
       onChangePage={() => setResetPaginationToggle(!resetPaginationToggle)}
       noDataComponent="No matching records found"

@@ -60,7 +60,7 @@
   .button-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 0px;
   }
   
   .button-container button {
@@ -85,3 +85,31 @@
     background-color: #d32f2f;
   }
   
+  .inputStyle{
+width:100;
+/* width: 323px; */
+height: 47px;
+
+/* White / High Emphasis */
+background: #FFFFFF;
+
+/* Gray / Divider */
+border: 1px solid black;
+border-radius: 4px;
+padding: 0px 15px;
+  }
+
+a:-webkit-any-link {
+    color: black;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.loadingWrapper{
+  width: 35px;
+  height: 35px;
+display: flex;
+align-items: center;
+justify-content: center;
+/* margin: 0px 0px; */
+}

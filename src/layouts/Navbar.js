@@ -4,14 +4,27 @@ import NavbarButton from "../components/NavbarButton";
 import LogoSrc from "../assets/sfs_logo.svg";
 import { color } from "../style/color";
 import Avatar from "../assets/avatar.svg";
-import { logoutIcon } from "../utils/image";
+// import { logoutIcon } from "../utils/image";
+import { ToastContainer } from "react-toastify";
 
 export default function Navbar() {
   const [logout, setLogout] = useState(false);
 
   return (
     <NavbarContainer>
-      <WebName src={LogoSrc} />
+      {/* <WebName src={LogoSrc} /> */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <WebName>assigment</WebName>
       <NavbarButton />
       <div
         style={{
@@ -38,7 +51,7 @@ export default function Navbar() {
                 <p>Client</p>
               </UserType>
             </ProfileName>
-            <UserLogout src={logoutIcon} onClick={() => setLogout(!logout)} />
+            <UserLogout src={''} onClick={() => setLogout(!logout)} />
           </Profile>
           {logout ? (
             <LogoutButton>
@@ -90,7 +103,7 @@ export const NavbarContainer = styled.form`
   z-index: 99999;
 `;
 
-export const WebName = styled.img`
+export const WebName = styled.p`
   width: 135px;
   height: 26px;
   margin: 30px 26px;
