@@ -83,10 +83,9 @@ const Employee = () => {
   const schema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     age: Yup.string().required("Age is required"),
-    sex: Yup.string().required("G ender is required"),
-    idType: Yup.string().required("ID Type is required"),
-    mobile: Yup.string()
-      .required("Mobile number is required")
+    sex: Yup.string().required("Gender is required"),
+    idType: Yup.string(),
+    mobile: Yup.string().required('Mobile no.. is required')
       .matches(phoneRegExp, "Invalid Indian mobile number"),
         govId: Yup.string()
         .when('idType', {
@@ -99,7 +98,7 @@ const Employee = () => {
         }),
     guardianName: Yup.string(),
     email: Yup.string().email("Invalid email address"),
-    emergencyContact: Yup.string().required("Mobile number is required")
+    emergencyContact: Yup.string().required('Mobile no.. is required')
     .matches(phoneRegExp,"Invalid Indian mobile number"),
     address: Yup.string(),
     state: Yup.string(),
@@ -208,7 +207,7 @@ const Employee = () => {
         }}
       >
         <div>
-          <label>Name</label>
+          <label>Name<span style={{color:'red'}}>*</span></label>
         </div>
         <div >
           <input type="text" {...register("name")} className="inputStyle" placeholder="Name"/>
@@ -216,7 +215,7 @@ const Employee = () => {
         </div>
 
         <div>
-          <label>Date of birth or Age</label>
+          <label>Date of birth or Age<span style={{color:'red'}}>*</span></label>
         </div>
         <div>
           <input
@@ -227,7 +226,7 @@ const Employee = () => {
           {errors.age && <p style={{color:'red'}}>{errors.age.message}</p>}
         </div>
         <div>
-          <label>Sex</label>
+          <label>Sex<span style={{color:'red'}}>*</span></label>
         </div>
         <div>
           <select {...register("sex")} className="inputStyle">
@@ -330,6 +329,17 @@ const Employee = () => {
         <div>
           <input type="text" {...register("address")} className="inputStyle" placeholder="Address"/>
         </div>
+        
+        
+        <div>
+          <label>Country</label>
+        </div>
+        <div>
+          <select {...register("country")} onChange={handleCountryChangee} className="inputStyle">
+            <option value="">Select Country</option>
+            {countryOptions}
+          </select>
+        </div>
         <div>
           <label>State</label>
         </div>
@@ -346,15 +356,6 @@ const Employee = () => {
           <select {...register("city")} onChange={handleCityChange} className="inputStyle">
             <option value="">Select city</option>
             {cityOptions}
-          </select>
-        </div>
-        <div>
-          <label>Country</label>
-        </div>
-        <div>
-          <select {...register("country")} onChange={handleCountryChangee} className="inputStyle">
-            <option value="">Select Country</option>
-            {countryOptions}
           </select>
         </div>
         <div>
