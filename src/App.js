@@ -15,6 +15,7 @@ function App() {
     <GlobalStyle/>
     <BrowserRouter>
       <Routes>
+        
         <Route path="/" Component={Layout}>
           <Route index Component={Employee} />
           <Route path="view-user" Component={Project} />
